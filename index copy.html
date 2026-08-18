@@ -1,11 +1,146 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Formulário Relacionamentos</title>
 </head>
 <body>
+
+<form id="meuFormulario">
+    <p>1. Você sente necessidade de pedir permissão ao seu/sua parceiro(a) para sair ou vestir certas roupas?</p>
+    <select id="p1" required>
+        <option value="">Selecione uma opção</option>
+        <option value="0">Nunca</option>
+        <option value="1">Raramente</option>
+        <option value="2">Às vezes</option>
+        <option value="3">Frequentemente</option>
+    </select>
+
+    <br><br>
+
+    <p>2. Quando vocês discutem, você sempre acaba se sentindo culpado(a) por tudo?</p>
+    <select id="p2" required>
+        <option value="">Selecione uma opção</option>
+        <option value="0">Nunca</option>
+        <option value="1">Raramente</option>
+        <option value="2">Às vezes</option>
+        <option value="3">Frequentemente</option>
+    </select>
+        
+    <br><br>
+
+    <p>3. Seu parceiro faz você duvidar da sua própria memória ou sanidade ("eu nunca disse isso", "você é louca")?</p>
+    <select id="p3" required>
+        <option value="">Selecione uma opção</option>
+        <option value="0">Nunca</option>
+        <option value="1">Raramente</option>
+        <option value="2">Às vezes</option>
+        <option value="3">Frequentemente</option>
+    </select>
+       
+    <br><br>
+
+    <p>4. Você sente que suas opiniões e sentimentos são constantemente diminuídos ou ridicularizados?</p>
+    <select id="p4" required>
+        <option value="">Selecione uma opção</option>
+        <option value="0">Nunca</option>
+        <option value="1">Raramente</option>
+        <option value="2">Às vezes</option>
+        <option value="3">Frequentemente</option>
+    </select>
+
+    <br><br>
+
+    <p>5. Existe algum tipo de ameaça (de término, de agressão ou de expor segredos) quando as coisas não saem como ele(a) quer?</p>
+    <select id="p5" required>
+        <option value="">Selecione uma opção</option>
+        <option value="0">Nunca</option>
+        <option value="1">Raramente</option>
+        <option value="2">Às vezes</option>
+        <option value="3">Frequentemente</option>
+    </select>
+
+    <br><br>
+
+    <p>6. Você sente que suas opiniões e sentimentos são constantemente diminuídos ou ridicularizados?</p>
+    <select id="p6" required>
+        <option value="">Selecione uma opção</option>
+        <option value="0">Nunca</option>
+        <option value="1">Raramente</option>
+        <option value="2">Às vezes</option>
+        <option value="3">Frequentemente</option>
+    </select>
+
+    <br><br>
+
+    <p>7. Você sente que perdeu a sua identidade ou que não se reconhece mais desde que entrou nessa relação?</p>
+    <select id="p7" required>
+        <option value="">Selecione uma opção</option>
+        <option value="0">Nunca</option>
+        <option value="1">Raramente</option>
+        <option value="2">Às vezes</option>
+        <option value="3">Frequentemente</option>
+    </select>
     
+    <br><br>   
+    
+    <button type="button" onclick="calcularResultado()">Enviar</button>
+    <button type="button" onclick="limparFormulario()">Limpar Respostas</button>
+</form>
+
+<br><br>
+
+<textarea id="caixaTexto" rows="10" cols="70" readonly style="display: none;"></textarea>
+
+<script>
+function calcularResultado() {
+    const perguntas = ["p1", "p2", "p3", "p4", "p5", "p6", "p7"];
+    let totalAsVezes = 0;
+    let encontrouFrequentemente = false;
+    let preencheuTudo = true;
+
+    for (let i = 0; i < perguntas.length; i++) {
+        let resposta = document.getElementById(perguntas[i]).value;
+
+        if (resposta === "") {
+            preencheuTudo = false;
+        }
+        if (resposta === "2") {
+            totalAsVezes++;
+        }
+        if (resposta === "3") {
+            encontrouFrequentemente = true;
+        }
+    }
+
+    if (!preencheuTudo) {
+        alert("Por favor, responda a todas as perguntas antes de enviar.");
+        return;
+    }
+
+    const caixaTexto = document.getElementById("caixaTexto");
+    let mensagemFinal = "Resultado da sua avaliação:\n\n";
+
+    if (encontrouFrequentemente) {
+        mensagemFinal += "Alerta máximo. Esse comportamento é característico de um relacionamento abusivo. Você não está sozinha(o) e pode buscar apoio.";
+    } else if (totalAsVezes > 3) {
+        mensagemFinal += "Atenção. Existem pequenos sinais de alerta que merecem cuidado e diálogo.";
+    } else {
+        mensagemFinal += "Seu relacionamento demonstra sinais saudáveis de respeito e individualidade.";
+    }
+
+    caixaTexto.value = messageFinal = mensagemFinal;
+    caixaTexto.style.display = "block";
+}
+
+function limparFormulario() {
+    document.getElementById("meuFormulario").reset();
+    const caixaTexto = document.getElementById("caixaTexto");
+    caixaTexto.value = "";
+    caixaTexto.style.display = "none";
+}
+</script>
+
 </body>
 </html>
